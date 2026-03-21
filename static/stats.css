@@ -1,0 +1,488 @@
+/* =============================================================================
+   static/stats.css
+   snap-coin-stats/static/stats.css
+   v0.4.0
+   Amber / dark theme.
+============================================================================= */
+
+:root {
+  --bg:          #0d0e10;
+  --bg2:         #13151a;
+  --bg3:         #1a1d24;
+  --border:      #2a2d35;
+  --border2:     #353840;
+  --amber:       #f0a832;
+  --amber-dim:   #b07820;
+  --amber-glow:  rgba(240,168,50,.12);
+  --text:        #d4d8e0;
+  --text-dim:    #7a8090;
+  --text-bright: #eef0f4;
+  --green:       #4caf82;
+  --red:         #e05555;
+  --font-mono:   'IBM Plex Mono', monospace;
+  --font-sans:   'IBM Plex Sans', sans-serif;
+  --radius:      6px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.shell { display: flex; flex-direction: column; min-height: 100vh; }
+
+/* --- Topbar --- */
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 20px;
+  height: 64px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.topbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.topbar-logo-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.topbar-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  color: var(--text-bright);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.topbar-metrics {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  overflow: hidden;
+}
+
+.tmet {
+  display: flex;
+  flex-direction: column;
+  padding: 0 14px;
+}
+.tmet-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.tmet-val {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-bright);
+  white-space: nowrap;
+}
+.tmet-val.amber { color: var(--amber); font-size: 22px; }
+
+.tmet-sep {
+  width: 1px;
+  height: 28px;
+  background: var(--border);
+  flex-shrink: 0;
+}
+
+.explorer-btn {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  color: var(--bg);
+  background: var(--amber);
+  border-radius: var(--radius);
+  padding: 6px 14px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background .15s;
+  align-self: center;
+  margin-left: 16px;
+}
+.explorer-btn:hover { background: #f5be60; }
+
+.topbar-right {
+  flex-shrink: 0;
+  margin-left: auto;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.chain-tagline {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1px;
+}
+.chain-tag-main {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-bright);
+  letter-spacing: .06em;
+}
+.chain-tag-sub {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-dim);
+  letter-spacing: .04em;
+}
+#snapCounter { color: var(--amber); }
+
+.snapshot-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-dim);
+  letter-spacing: .04em;
+}
+
+/* --- Intel panel --- */
+.intel-panel {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  padding: 6px 20px;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+}
+
+.intel-loading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.intel-chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.intel-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 140px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 6px 10px;
+  transition: border-color .15s;
+}
+.intel-chip:hover { border-color: var(--amber-dim); }
+.ichip-icon { font-size: 14px; flex-shrink: 0; }
+.ichip-label {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.ichip-val {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--amber);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ichip-val.green { color: var(--green); }
+.ichip-val.red   { color: var(--red); }
+.ichip-sub {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-dim);
+  margin-top: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* --- Content --- */
+.content { flex: 1; padding: 16px 20px; overflow: auto; }
+
+.recv-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+/* --- Card --- */
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg3);
+}
+.card-title {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-bright);
+}
+.card-meta {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+}
+
+/* --- Receiver rows --- */
+.recv-row {
+  display: grid;
+  grid-template-columns: 32px 1fr auto auto;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 16px;
+  border-bottom: 1px solid var(--border);
+  transition: background .1s;
+}
+.recv-row:hover { background: var(--bg3); }
+.recv-row:last-child { border-bottom: none; }
+
+.recv-rank {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  text-align: right;
+  position: relative;
+  z-index: 1;
+}
+
+.recv-addr {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--amber-dim);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-decoration: none;
+  position: relative;
+  z-index: 1;
+}
+.recv-addr:hover { color: var(--amber); text-decoration: underline; }
+
+.recv-pct {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  white-space: nowrap;
+  min-width: 48px;
+  text-align: right;
+  position: relative;
+  z-index: 1;
+}
+
+.recv-amount {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-bright);
+  white-space: nowrap;
+  text-align: right;
+  position: relative;
+  z-index: 1;
+}
+
+.recv-bar-wrap {
+  position: relative;
+  height: 3px;
+  background: var(--bg3);
+  border-radius: 2px;
+  overflow: hidden;
+  grid-column: 1 / -1;
+  z-index: 1;
+}
+.recv-bar {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  border-radius: 2px;
+  transition: width .4s ease;
+}
+
+/* --- Delta indicators --- */
+.delta-up   { color: #4caf82; font-size: 11px; font-weight: 700; }
+.delta-dn   { color: #e05555; font-size: 11px; font-weight: 700; }
+.delta-none { color: #353840; font-size: 11px; }
+
+/* --- Pie chart --- */
+.pie-wrap {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.pie-inner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+.pie-wrap svg { overflow: visible; flex-shrink: 0; }
+
+.pie-legend {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 340px;
+  overflow-y: auto;
+}
+.pie-legend-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+}
+.pie-legend-rank {
+  color: var(--text-dim);
+  min-width: 24px;
+  text-align: right;
+  flex-shrink: 0;
+}
+.pie-legend-pct {
+  color: var(--text-bright);
+  font-weight: 600;
+  white-space: nowrap;
+  min-width: 38px;
+}
+.pie-legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.pie-legend-addr {
+  flex: 1;
+  color: var(--text-dim);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* --- Global chart --- */
+.global-chart-wrap {
+  padding: 12px 16px 8px;
+  border-top: 1px solid var(--border);
+}
+.global-chart-title {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+#globalChart { width: 100%; }
+#globalChart svg { display: block; }
+.chart-empty {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  padding: 20px 0;
+  text-align: center;
+}
+
+/* --- Spinner --- */
+.spinner-sm {
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--border2);
+  border-top-color: var(--amber);
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* --- Scrollbar --- */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+/* --- Footer --- */
+.site-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.footer-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.footer-val {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--amber);
+}
+.footer-sep {
+  flex: 1;
+}
+.footer-sub {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-dim);
+  letter-spacing: .04em;
+}
+
+/* =============================================================================
+   static/stats.css
+   snap-coin-stats/static/stats.css
+   Created: 2026-03-21T00:00:00Z
+============================================================================= */

@@ -1,0 +1,157 @@
+<!doctype html>
+<!--
+  static/stats.html
+  snap-coin-stats/static/stats.html
+  v0.5.0
+  Public SNAP chain stats page.
+  Removed intel chips: Biggest Spender, Top Miner, Gini Coefficient.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>SNAP · Chain Stats</title>
+  <link rel="icon" type="image/png" href="https://avatars.githubusercontent.com/u/248306137?s=48&v=4"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/stats.css">
+  <script defer src="/static/stats.js"></script>
+</head>
+<body>
+<div class="shell">
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="topbar-logo">
+      <img src="https://avatars.githubusercontent.com/u/248306137?s=48&v=4"
+           class="topbar-logo-img" alt="SNAP"/>
+      <span class="topbar-title">SNAP-COIN · CHAIN STATS</span>
+    </div>
+    <div class="topbar-metrics" id="topbarMetrics">
+      <div class="tmet">
+        <span class="tmet-label">Wallets</span>
+        <span class="tmet-val" id="gWallets">—</span>
+      </div>
+      <div class="tmet-sep"></div>
+      <div class="tmet">
+        <span class="tmet-label">TxIDs</span>
+        <span class="tmet-val" id="gTxids">—</span>
+      </div>
+      <div class="tmet-sep"></div>
+      <div class="tmet">
+        <span class="tmet-label">Outputs</span>
+        <span class="tmet-val" id="gOutputs">—</span>
+      </div>
+      <div class="tmet-sep"></div>
+      <div class="tmet">
+        <span class="tmet-label">Unspent</span>
+        <span class="tmet-val" id="gUnspent">—</span>
+      </div>
+      <div class="tmet-sep"></div>
+      <div class="tmet">
+        <span class="tmet-label">Circulation</span>
+        <span class="tmet-val amber" id="gCirculation">—</span>
+      </div>
+      <a class="explorer-btn" href="https://explorer.snap-coin.net/" target="_blank" rel="noopener">
+        ← Back to Explorer
+      </a>
+    </div>
+    <div class="topbar-right">
+      <div class="chain-tagline">
+        <span class="chain-tag-main">Live chain DB snapshot</span>
+        <span class="chain-tag-sub">updates every 5 min · <span id="snapCounter">snapshot #0</span></span>
+      </div>
+      <span class="snapshot-label" id="snapshotAge">—</span>
+    </div>
+  </header>
+
+  <!-- INTEL CHIPS -->
+  <div class="intel-panel" id="intelPanel">
+    <div class="intel-loading" id="intelLoading">
+      <div class="spinner-sm"></div>
+      <span>waiting for second snapshot to compute deltas…</span>
+    </div>
+    <div class="intel-chips" id="intelChips" style="display:none">
+
+      <div class="intel-chip">
+        <div class="ichip-icon">🆕</div>
+        <div class="ichip-body">
+          <div class="ichip-label">New Wallets</div>
+          <div class="ichip-val" id="ic-newwallets-val">—</div>
+          <div class="ichip-sub" id="ic-newwallets-sub">since last snapshot</div>
+        </div>
+      </div>
+
+      <div class="intel-chip">
+        <div class="ichip-icon">📈</div>
+        <div class="ichip-body">
+          <div class="ichip-label">Biggest Gainer</div>
+          <div class="ichip-val" id="ic-gainer-val">—</div>
+          <div class="ichip-sub" id="ic-gainer-sub">—</div>
+        </div>
+      </div>
+
+      <div class="intel-chip">
+        <div class="ichip-icon">📤</div>
+        <div class="ichip-body">
+          <div class="ichip-label">Top Sender</div>
+          <div class="ichip-val" id="ic-sender-val">—</div>
+          <div class="ichip-sub" id="ic-sender-sub">—</div>
+        </div>
+      </div>
+
+      <div class="intel-chip">
+        <div class="ichip-icon">⛏️</div>
+        <div class="ichip-body">
+          <div class="ichip-label">New Circulation</div>
+          <div class="ichip-val" id="ic-newcirc-val">—</div>
+          <div class="ichip-sub" id="ic-newcirc-sub">minted this cycle</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="content">
+    <div class="recv-layout">
+
+      <div class="card" id="recvListCard">
+        <div class="card-head">
+          <span class="card-title">Receivers</span>
+          <span class="card-meta" id="recvMeta">—</span>
+        </div>
+      </div>
+
+      <div class="card" id="recvPieCard">
+        <div class="card-head">
+          <span class="card-title">Distribution</span>
+          <span class="card-meta" id="recvPieMeta">—</span>
+        </div>
+        <div class="pie-wrap" id="pieWrap"></div>
+        <div class="global-chart-wrap">
+          <div class="global-chart-title">Chain History</div>
+          <div id="globalChart"><div class="chart-empty">accumulating data…</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <span class="footer-label">Page Loads</span>
+    <span class="footer-val" id="footerPageLoads">—</span>
+    <span class="footer-sep"></span>
+    <span class="footer-sub">snap-coin-stats · <span id="footerSince">stats.snap.cyclewatts.ca</span></span>
+  </footer>
+
+</div>
+</body>
+</html>
+
+<!--
+  static/stats.html
+  snap-coin-stats/static/stats.html
+  Created: 2026-03-21T00:00:00Z
+-->
