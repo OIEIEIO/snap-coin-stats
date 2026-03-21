@@ -32,16 +32,25 @@ pub async fn ui_index() -> impl IntoResponse {
 }
 
 // ---------------------------------------------------------------------------
-// GET /api/globals
-// Increments page load counter on each call.
+// GET /api/globals?init=1
+// Increments page load counter only on initial page load (init=1).
 // ---------------------------------------------------------------------------
 
-pub async fn api_globals(State(state): State<AppState>) -> Response {
-    state.page_loads.fetch_add(1, Ordering::Relaxed);
+#[derive(Deserialize)]
+pub struct GlobalsQuery {
+    #[serde(default)]
+    pub init: u8,
+}
 
-    // Persist to disk — best effort, non-blocking
-    let count = state.page_loads.load(Ordering::Relaxed);
-    let _ = std::fs::write("./page_loads.txt", count.to_string());
+pub async fn api_globals(
+    State(state): State<AppState>,
+    Query(q): Query<GlobalsQuery>,
+) -> Response {
+    if q.init == 1 {
+        state.page_loads.fetch_add(1, Ordering::Relaxed);
+        let count = state.page_loads.load(Ordering::Relaxed);
+        let _ = std::fs::write("./page_loads.txt", count.to_string());
+    }
 
     let db = state.db.read().await;
     match db::global_metrics(&db) {

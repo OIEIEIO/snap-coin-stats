@@ -153,9 +153,10 @@ let _history = [];
 // Load globals
 // ---------------------------------------------------------------------------
 
-async function loadGlobals() {
+async function loadGlobals(init = false) {
   try {
-    const r = await fetch('/api/globals');
+    const url = init ? '/api/globals?init=1' : '/api/globals';
+    const r = await fetch(url);
     const g = await r.json();
     document.getElementById('gWallets').textContent     = fmtNum(g.wallets_with_unspent);
     document.getElementById('gTxids').textContent       = fmtNum(g.tx_entries_scanned);
@@ -372,13 +373,13 @@ async function loadVisits() {
 // Boot
 // ---------------------------------------------------------------------------
 
-async function refresh() {
+async function refresh(init = false) {
   await loadHistory();
-  await Promise.all([loadGlobals(), loadTopReceivers(), loadVisits()]);
+  await Promise.all([loadGlobals(init), loadTopReceivers(), loadVisits()]);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  refresh();
+  refresh(true);
   setInterval(refresh, REFRESH_MS);
 });
 
