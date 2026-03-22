@@ -481,6 +481,77 @@ html, body {
   letter-spacing: .04em;
 }
 
+/* --- Mobile --- */
+@media (max-width: 768px) {
+
+  /* Topbar: stack into two rows */
+  .topbar {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 10px 12px;
+    gap: 8px;
+  }
+
+  /* Logo row stays full width */
+  .topbar-logo {
+    flex: 1;
+  }
+
+  /* Explorer button moves next to logo */
+  .explorer-btn {
+    margin-left: 0;
+    align-self: center;
+  }
+
+  /* Metrics: scrollable horizontal strip below logo */
+  .topbar-metrics {
+    order: 3;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex-wrap: nowrap;
+    padding-bottom: 4px;
+    gap: 0;
+  }
+
+  .tmet {
+    flex-shrink: 0;
+    padding: 0 10px;
+  }
+
+  .tmet-val { font-size: 14px; }
+  .tmet-val.amber { font-size: 16px; }
+
+  /* Right side: snapshot info moves next to logo */
+  .topbar-right {
+    order: 2;
+    margin-left: auto;
+    align-items: flex-end;
+  }
+
+  /* Intel chips: 2 per row */
+  .intel-chip {
+    min-width: calc(50% - 4px);
+    flex: 1 1 calc(50% - 4px);
+  }
+
+  /* Stack two columns to single column */
+  .recv-layout {
+    grid-template-columns: 1fr;
+  }
+
+  /* Content padding */
+  .content {
+    padding: 10px 12px;
+  }
+
+  /* Intel panel padding */
+  .intel-panel {
+    padding: 6px 12px;
+  }
+
+}
+
 /* =============================================================================
    static/stats.css
    snap-coin-stats/static/stats.css
