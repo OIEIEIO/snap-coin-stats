@@ -484,7 +484,7 @@ html, body {
 /* --- Mobile --- */
 @media (max-width: 768px) {
 
-  /* Topbar: stack into two rows */
+  /* Topbar: stack into rows */
   .topbar {
     flex-wrap: wrap;
     height: auto;
@@ -497,37 +497,51 @@ html, body {
     flex: 1;
   }
 
-  /* Explorer button moves next to logo */
-  .explorer-btn {
-    margin-left: 0;
-    align-self: center;
-  }
-
-  /* Metrics: scrollable horizontal strip below logo */
-  .topbar-metrics {
-    order: 3;
-    width: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-    flex-wrap: nowrap;
-    padding-bottom: 4px;
-    gap: 0;
-  }
-
-  .tmet {
-    flex-shrink: 0;
-    padding: 0 10px;
-  }
-
-  .tmet-val { font-size: 14px; }
-  .tmet-val.amber { font-size: 16px; }
-
-  /* Right side: snapshot info moves next to logo */
+  /* Right side: snapshot info next to logo */
   .topbar-right {
     order: 2;
     margin-left: auto;
     align-items: flex-end;
   }
+
+  /* Metrics: wrapping strip below logo */
+  .topbar-metrics {
+    order: 3;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 0;
+    padding-bottom: 4px;
+  }
+
+  /* Wallets/TxIDs/Outputs/Unspent — scrollable first row */
+  .topbar-metrics .tmet {
+    flex-shrink: 0;
+    padding: 0 10px;
+  }
+
+  /* Circulation — own full-width row */
+  .topbar-metrics .tmet:last-of-type {
+    flex-basis: 100%;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    padding: 6px 10px 0;
+  }
+
+  .topbar-metrics .tmet:last-of-type .tmet-label {
+    display: none;
+  }
+
+  /* Explorer button on same row as circulation */
+  .explorer-btn {
+    order: 99;
+    margin-left: 0;
+    flex-shrink: 0;
+    align-self: center;
+  }
+
+  .tmet-val { font-size: 14px; }
+  .tmet-val.amber { font-size: 18px; }
 
   /* Intel chips: 2 per row */
   .intel-chip {
@@ -535,10 +549,13 @@ html, body {
     flex: 1 1 calc(50% - 4px);
   }
 
-  /* Stack two columns to single column */
+  /* Stack two columns — pie card first */
   .recv-layout {
     grid-template-columns: 1fr;
   }
+
+  #recvPieCard { order: 1; }
+  #recvListCard { order: 2; }
 
   /* Content padding */
   .content {
