@@ -80,11 +80,11 @@ function renderGlobalChart(records) {
   const ch   = H - PAD.top  - PAD.bottom;
 
   const series = [
-    { key: 'circulation', label: 'Circulation', color: '#f0a832', divisor: ATOMIC,
+    { key: 'circulation', label: 'Circulation', color: '#f0a832', divisor: ATOMIC, relFloor: false,
       fmt: v => v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) },
-    { key: 'wallets',     label: 'Wallets',     color: '#4caf82', divisor: 1,
+    { key: 'wallets',     label: 'Wallets',     color: '#4caf82', divisor: 1,     relFloor: true,
       fmt: v => Math.round(v).toLocaleString() },
-    { key: 'tx_count',    label: 'TxIDs',       color: '#5b8fff', divisor: 1,
+    { key: 'tx_count',    label: 'TxIDs',       color: '#5b8fff', divisor: 1,     relFloor: true,
       fmt: v => Math.round(v).toLocaleString() },
   ];
 
@@ -98,11 +98,12 @@ function renderGlobalChart(records) {
   }
 
   // Each series normalised independently to its own 0-100% range
+  // circulation uses absolute floor (1) — relFloor series use max*0.001 for TxIDs/Wallets
   series.forEach(s => {
     const vals = records.map(r => (r[s.key] || 0) / s.divisor);
     const min  = Math.min(...vals);
     const max  = Math.max(...vals);
-    const rng  = Math.max(max - min, max * 0.001, 1);
+    const rng  = s.relFloor ? Math.max(max - min, max * 0.001, 1) : Math.max(max - min, 1);
 
     const pts = vals.map((v, i) => {
       const x = PAD.left + (i / (vals.length - 1)) * cw;
